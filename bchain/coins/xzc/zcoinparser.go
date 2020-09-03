@@ -208,6 +208,7 @@ func (p *ZcoinParser) ParseBlock(b []byte) (*bchain.Block, error) {
 		txVersion := version & 0xffff
 		txType := (version >> 16) & 0xffff
 
+
 		enc := wire.WitnessEncoding
 
 		// transaction quorum commitment could not be parsed with witness flag

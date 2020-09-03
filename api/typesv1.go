@@ -52,7 +52,7 @@ type VoutV1 struct {
 type TxV1 struct {
 	Txid          string   `json:"txid"`
 	Version       int32    `json:"version,omitempty"`
-	Locktime      uint32   `json:"locktime,omitempty"`
+	Locktime      uint32   `json:"locktime"`
 	Vin           []VinV1  `json:"vin"`
 	Vout          []VoutV1 `json:"vout"`
 	Blockhash     string   `json:"blockhash,omitempty"`
@@ -92,6 +92,7 @@ type AddressUtxoV1 struct {
 	AmountSat     big.Int `json:"satoshis"`
 	Height        int     `json:"height,omitempty"`
 	Confirmations int     `json:"confirmations"`
+	ScriptPubKey  string  `json:"scriptPubKey"`
 }
 
 // BlockV1 contains information about block
@@ -205,6 +206,7 @@ func (w *Worker) AddressUtxoToV1(au Utxos) []AddressUtxoV1 {
 			Height:        utxo.Height,
 			Txid:          utxo.Txid,
 			Vout:          uint32(utxo.Vout),
+			ScriptPubKey:  utxo.ScriptPubKey,
 		}
 	}
 	return v1

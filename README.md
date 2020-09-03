@@ -2,6 +2,8 @@
 
 # Blockbook
 
+**FOR INTERNAL GUARDA WALLET PURPOSES ONLY. PLEASE USE UPSTREAM INSTEAD!**
+
 **Blockbook** is back-end service for Trezor wallet. Main features of **Blockbook** are:
 
 - index of addresses and address balances of the connected block chain
@@ -10,6 +12,11 @@
 - websocket, API and legacy Bitcore Insight compatible socket.io interfaces
 - support of multiple coins (Bitcoin and Ethereum type), with easy extensibility for other coins
 - scripts for easy creation of debian packages for backend and blockbook
+
+## For Guarda Dev Team
+
+ - Branch `guarda-changes` only for production use. DO NOT MERGE UNTESTED CHANGES!
+ - Branch `master` for compability with Trezor upstream. ONLY PRs FROM UPSTREAM ALLOWED!
 
 ## Build and installation instructions
 

@@ -35,6 +35,22 @@ h3 {
     padding-bottom: 1px;
 }
 
+.message {
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    line-height: 22px;
+    text-align: center;
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+  
+  .message.announcment {  
+    color: #7190EB;
+    background: rgba(66, 139, 202, 0.1);
+  }
+
 .navbar-form .form-control {
     background-color: gray;
     color: #fff;
@@ -91,29 +107,34 @@ h3 {
     margin: 0;
     padding-bottom: 0;
     padding-top: 0;
-    background-color: #212121;
+    background-image: linear-gradient(90deg,#9e77c1,#a572ba);
+    background-color: #9e77c1;
     border: 0;
 }
 
-.bg-trezor {
-    background-color: #212121!important;
-    padding-top: 3px;
-    padding-bottom: 2px;
-    z-index: 2;
+.bg-guarda {
+    background-image: linear-gradient(90deg,#9e77c1,#a572ba);
+    background-color: #9e77c1!important;
+    height: 53px;
 }
 
-.bg-trezor .navbar-brand {
+.bg-guarda .navbar-brand {
     color: rgba(255, 255, 255);
     font-weight: bold;
     font-size: 19px;
     fill: #FFFFFF;
 }
 
+.guarda-logo-svg-white svg {
+    fill: #FFFFFF;
+    margin-top: 6px;
+}
+
 @media (max-width: 768px) {
     .navbar {
         font-size: 14px;
     }
-    .bg-trezor .navbar-brand {
+    .bg-guarda .navbar-brand {
         font-weight: normal;
         font-size: 14px;
     }
@@ -127,7 +148,8 @@ h3 {
 }
 
 #footer {
-    background-color: #212121;
+    background-image: linear-gradient(90deg,#9e77c1,#a572ba);
+    background-color: #9e77c1;
     color: #fff;
     height: 42px;
     overflow: hidden;
@@ -158,6 +180,7 @@ h3 {
     display: inline-block;
     padding: .7em 2em;
     font-size: 13px;
+    font-weight: 100;
     color: #fff;
     text-align: center;
     white-space: nowrap;

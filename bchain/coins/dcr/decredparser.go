@@ -9,10 +9,12 @@ import (
 	"math/big"
 	"strconv"
 
-	cfg "github.com/decred/dcrd/chaincfg"
 	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/hdkeychain"
-	"github.com/decred/dcrd/txscript"
+	cfg "github.com/decred/dcrd/chaincfg/v2"
+	"github.com/decred/dcrd/dcrec"
+	"github.com/decred/dcrd/dcrutil/v2"
+	"github.com/decred/dcrd/hdkeychain/v2"
+	"github.com/decred/dcrd/txscript/v2"
 	"github.com/juju/errors"
 	"github.com/martinboehm/btcd/wire"
 	"github.com/martinboehm/btcutil/base58"
@@ -64,9 +66,9 @@ func NewDecredParser(params *chaincfg.Params, c *btc.Configuration) *DecredParse
 
 	switch d.BitcoinParser.Params.Name {
 	case "testnet3":
-		d.netConfig = &cfg.TestNet3Params
+		d.netConfig = cfg.TestNet3Params()
 	default:
-		d.netConfig = &cfg.MainNetParams
+		d.netConfig = cfg.MainNetParams()
 	}
 	return d
 }
@@ -202,7 +204,8 @@ func (p *DecredParser) GetAddrDescFromVout(output *bchain.Vout) (bchain.AddressD
 		return nil, err
 	}
 
-	scriptClass, addresses, _, err := txscript.ExtractPkScriptAddrs(txscript.DefaultScriptVersion, script, p.netConfig)
+	const scriptVersion = 0
+	scriptClass, addresses, _, err := txscript.ExtractPkScriptAddrs(scriptVersion, script, p.netConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -240,7 +243,12 @@ func (p *DecredParser) UnpackTx(buf []byte) (*bchain.Tx, uint32, error) {
 }
 
 func (p *DecredParser) addrDescFromExtKey(extKey *hdkeychain.ExtendedKey) (bchain.AddressDescriptor, error) {
-	var addr, err = extKey.Address(p.netConfig)
+	pk, err := extKey.ECPubKey()
+	if err != nil {
+		return nil, err
+	}
+	hash := dcrutil.Hash160(pk.SerializeCompressed())
+	addr, err := dcrutil.NewAddressPubKeyHash(hash, p.netConfig, dcrec.STEcdsaSecp256k1)
 	if err != nil {
 		return nil, err
 	}
@@ -251,7 +259,7 @@ func (p *DecredParser) addrDescFromExtKey(extKey *hdkeychain.ExtendedKey) (bchai
 // listed indexes
 func (p *DecredParser) DeriveAddressDescriptors(xpub string, change uint32,
 	indexes []uint32) ([]bchain.AddressDescriptor, error) {
-	extKey, err := hdkeychain.NewKeyFromString(xpub)
+	extKey, err := hdkeychain.NewKeyFromString(xpub, p.netConfig)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +290,7 @@ func (p *DecredParser) DeriveAddressDescriptorsFromTo(xpub string, change uint32
 	if toIndex <= fromIndex {
 		return nil, errors.New("toIndex<=fromIndex")
 	}
-	extKey, err := hdkeychain.NewKeyFromString(xpub)
+	extKey, err := hdkeychain.NewKeyFromString(xpub, p.netConfig)
 	if err != nil {
 		return nil, err
 	}

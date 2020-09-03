@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/juju/errors"
+	"github.com/trezor/blockbook/bchain/coins/aryacoin"
 	"github.com/trezor/blockbook/bchain"
 	"github.com/trezor/blockbook/bchain/coins/bch"
 	"github.com/trezor/blockbook/bchain/coins/bellcoin"
@@ -17,6 +18,7 @@ import (
 	"github.com/trezor/blockbook/bchain/coins/bitzeny"
 	"github.com/trezor/blockbook/bchain/coins/btc"
 	"github.com/trezor/blockbook/bchain/coins/btg"
+	"github.com/trezor/blockbook/bchain/coins/creamcoin"
 	"github.com/trezor/blockbook/bchain/coins/cpuchain"
 	"github.com/trezor/blockbook/bchain/coins/dash"
 	"github.com/trezor/blockbook/bchain/coins/dcr"
@@ -30,6 +32,7 @@ import (
 	"github.com/trezor/blockbook/bchain/coins/gamecredits"
 	"github.com/trezor/blockbook/bchain/coins/grs"
 	"github.com/trezor/blockbook/bchain/coins/koto"
+	"github.com/trezor/blockbook/bchain/coins/kmd"
 	"github.com/trezor/blockbook/bchain/coins/liquid"
 	"github.com/trezor/blockbook/bchain/coins/litecoin"
 	"github.com/trezor/blockbook/bchain/coins/monacoin"
@@ -50,6 +53,7 @@ import (
 	"github.com/trezor/blockbook/bchain/coins/vipstarcoin"
 	"github.com/trezor/blockbook/bchain/coins/xzc"
 	"github.com/trezor/blockbook/bchain/coins/zec"
+	"github.com/trezor/blockbook/bchain/coins/yec"
 	"github.com/trezor/blockbook/common"
 )
 
@@ -60,12 +64,15 @@ var BlockChainFactories = make(map[string]blockChainFactory)
 
 func init() {
 	BlockChainFactories["Bitcoin"] = btc.NewBitcoinRPC
-	BlockChainFactories["Testnet"] = btc.NewBitcoinRPC
+	BlockChainFactories["BcashSV"] = bch.NewBCashRPC
+	BlockChainFactories["BcashSV Testnet"] = bch.NewBCashRPC
+	BlockChainFactories["BitcoinTestnet"] = btc.NewBitcoinRPC
 	BlockChainFactories["Zcash"] = zec.NewZCashRPC
 	BlockChainFactories["Zcash Testnet"] = zec.NewZCashRPC
 	BlockChainFactories["Ethereum"] = eth.NewEthereumRPC
 	BlockChainFactories["Ethereum Classic"] = eth.NewEthereumRPC
 	BlockChainFactories["Ethereum Testnet Ropsten"] = eth.NewEthereumRPC
+	BlockChainFactories["Expanse"] = eth.NewEthereumRPC
 	BlockChainFactories["Bcash"] = bch.NewBCashRPC
 	BlockChainFactories["Bcash Testnet"] = bch.NewBCashRPC
 	BlockChainFactories["Bgold"] = btg.NewBGoldRPC
@@ -73,6 +80,7 @@ func init() {
 	BlockChainFactories["Dash Testnet"] = dash.NewDashRPC
 	BlockChainFactories["Decred"] = dcr.NewDecredRPC
 	BlockChainFactories["Decred Testnet"] = dcr.NewDecredRPC
+	BlockChainFactories["Callisto"] = eth.NewEthereumRPC
 	BlockChainFactories["GameCredits"] = gamecredits.NewGameCreditsRPC
 	BlockChainFactories["Koto"] = koto.NewKotoRPC
 	BlockChainFactories["Koto Testnet"] = koto.NewKotoRPC
@@ -95,6 +103,7 @@ func init() {
 	BlockChainFactories["PIVX Testnet"] = pivx.NewPivXRPC
 	BlockChainFactories["Polis"] = polis.NewPolisRPC
 	BlockChainFactories["Zcoin"] = xzc.NewZcoinRPC
+	BlockChainFactories["Zcoin Testnet"] = xzc.NewZcoinRPC
 	BlockChainFactories["Fujicoin"] = fujicoin.NewFujicoinRPC
 	BlockChainFactories["Flo"] = flo.NewFloRPC
 	BlockChainFactories["Bellcoin"] = bellcoin.NewBellcoinRPC
@@ -115,6 +124,10 @@ func init() {
 	BlockChainFactories["Omotenashicoin"] = omotenashicoin.NewOmotenashiCoinRPC
 	BlockChainFactories["Omotenashicoin Testnet"] = omotenashicoin.NewOmotenashiCoinRPC
 	BlockChainFactories["BitZeny"] = bitzeny.NewBitZenyRPC
+	BlockChainFactories["Ycash"] = yec.NewYCashRPC
+	BlockChainFactories["Creamcoin"] = creamcoin.NewCreamCoinRPC
+	BlockChainFactories["Komodo"] = kmd.NewKmdRPC
+	BlockChainFactories["Aryacoin"] = aryacoin.NewAryaCoinRPC
 }
 
 // GetCoinNameFromConfig gets coin name and coin shortcut from config file

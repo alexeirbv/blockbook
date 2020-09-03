@@ -1,4 +1,11 @@
 {{define "specific"}}{{$cs := .CoinShortcut}}{{$bb := .Info.Blockbook}}{{$be := .Info.Backend}}
+{{- if eq .CoinShortcut "BCHSV" -}}
+    <div class="row">
+        <div class="message announcment col-12">
+          <span>We’ve changed technology platform of Bitcoin SV explorer to increase uptime and stability. Explorer API is now available in both versions. However we encourage our API users to migrate to a new protocol as Insight version can be deprecated in future.</span>
+        </div>
+    </div>
+{{- end -}}
 <h1>Application status</h1>
 {{- if $bb.InitialSync -}}
 <h3 class="bg-danger text-white" style="padding: 20px;">Application is now in initial synchronization and does not provide any data.</h3>
@@ -21,7 +28,7 @@
                 </tr>
                 <tr>
                     <td>Version / Commit / Build</td>
-                    <td class="data">{{$bb.Version}} / <a href="https://github.com/trezor/blockbook/commit/{{$bb.GitCommit}}" target="_blank" rel="noopener noreferrer">{{$bb.GitCommit}}</a> / {{$bb.BuildTime}}</td>
+                    <td class="data">{{$bb.Version}} / <a href="https://github.com/guardaco/blockbook/commit/{{$bb.GitCommit}}" target="_blank" rel="noopener noreferrer">{{$bb.GitCommit}}</a> / {{$bb.BuildTime}}</td>
                 </tr>
                 <tr>
                     <td>Synchronized</td>
@@ -100,15 +107,8 @@
                     <td class="data">{{$be.SizeOnDisk}}</td>
                 </tr>
                 {{- end -}}
-                {{- if $be.Warnings -}}
-                <tr>
-                    <td>Warnings</td>
-                    <td class="data text-warning">{{$be.Warnings}}</td>
-                </tr>
-                {{- end -}}
             </tbody>
         </table>
     </div>
 </div>
-<span class="text-muted">{{$bb.About}}</span>
 {{end}}
