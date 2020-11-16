@@ -1,0 +1,21 @@
+{
+    "fiat_rates": "coingecko",
+    "fiat_rates_params": "{\"url\": \"https://api.coingecko.com/api/v3\", \"coin\": \"bitcoin-cash\", \"periodSeconds\": 60}",
+    "coin_name": "BcashABC",
+    "coin_shortcut": "BCHABC",
+    "coin_label": "Bitcoin Cash ABC",
+    "rpc_url": "http://127.0.0.1:8031",
+    "rpc_user": "rpc",
+    "rpc_pass": "rpc",
+    "rpc_timeout": 25,
+    "parse": true,
+    "message_queue_binding": "tcp://127.0.0.1:38331",
+    "subversion": "/Bitcoin ABC:0.22.0/",
+    "address_format": "cashaddr",
+    "xpub_magic": 76067358,
+    "slip44": 145,
+
+    "mempool_workers": 8,
+    "mempool_sub_workers": 2,
+    "block_addresses_to_keep": 300
+}
