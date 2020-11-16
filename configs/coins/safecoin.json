@@ -6,7 +6,7 @@
       "alias": "safecoin"
     },
     "ports": {
-      "backend_rpc": 9771,
+      "backend_rpc": 8771,
       "backend_message_queue": 38332,
       "blockbook_internal": 9032,
       "blockbook_public": 9132
